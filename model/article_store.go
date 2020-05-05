@@ -36,7 +36,7 @@ func Store() {
 
 		articles := store.ArticleMap
 		articles[id-1] = Article{ID: id, Title: title, Body: body}
-
+		store.Update(title, body, id)
 		return c.JSON(http.StatusOK, articles)
 	})
 
@@ -44,6 +44,7 @@ func Store() {
 		id, _ := strconv.Atoi(c.Param("id"))
 		articles := store.ArticleMap
 		del := append(articles[:id-1], articles[id:]...)
+		store.Remove(id)
 		return c.JSON(http.StatusOK, del)
 	})
 
