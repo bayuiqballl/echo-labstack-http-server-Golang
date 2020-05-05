@@ -37,7 +37,11 @@ func (store *ArticleStoreInMemory) Save(article *Article) error {
 	return nil
 }
 
-// func (a *Article) ChangeTitle(title string) error {
-// 	//
-
-// }
+func (store *ArticleStoreInMemory) Remove(id int) error {
+	store.ArticleMap = append(store.ArticleMap[:id-1], store.ArticleMap[id:]...)
+	return nil
+}
+func (store *ArticleStoreInMemory) Update(title, body string, id int) error {
+	store.ArticleMap[id-1] = Article{ID: id, Title: title, Body: body}
+	return nil
+}
